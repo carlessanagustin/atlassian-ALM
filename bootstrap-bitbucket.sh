@@ -30,4 +30,8 @@ then
 fi
 
 chmod +x $FILE
-./$FILE -q
+./$FILE -q -varfile 
+
+update-rc.d atlbitbucket defaults
+
+cd /opt/atlassian/bitbucket/4.3.2
