@@ -16,3 +16,14 @@ apt-get -y install python-pip python-dev build-essential python-virtualenv
 echo "oracle-java8-installer shared/present-oracle-license-v1-1 boolean true" | debconf-set-selections
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
 apt-get -y install oracle-java8-installer
+
+
+cd /tmp
+
+FILE=atlassian-jira-software-7.0.10-jira-7.0.10-x64.bin
+CONF=varfile-jira.txt
+if [ ! -f "$FILE" ]
+then
+    wget https://www.atlassian.com/software/jira/downloads/binary/$FILE
+fi
+
