@@ -23,15 +23,37 @@ apt-get -y install postgresql perl
 cd /tmp
 
 FILE=atlassian-bitbucket-4.3.2-x64.bin
+CONF=varfile-bitbucket.txt
 if [ ! -f "$FILE" ]
 then
-    wget https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2-x64.bin
+    wget https://www.atlassian.com/software/stash/downloads/binary/$FILE
+    # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2-x64.bin
     # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2.tar.gz
+    wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
 fi
 
 chmod +x $FILE
-./$FILE -q -varfile 
+./$FILE -q -varfile varfile-bitbucket.txt
 
 update-rc.d atlbitbucket defaults
+service atlbitbucket start
 
-cd /opt/atlassian/bitbucket/4.3.2
+ls /var/atlassian/application-data/bitbucket
+ls /opt/atlassian/bitbucket/4.3.2
+
+###  final steps ###
+##  su postgres
+##
+##  createuser -SDReP bitbucket
+##  # CREATE ROLE bitbucket NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+##  # CREATE ROLE bitbucket PASSWORD '...............' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+##
+##  createdb -e -O bitbucket bitbucket
+##  # CREATE DATABASE bitbucket OWNER bitbucket;
+##  
+##  # ALTER USER bitbucket WITH PASSWORD 'bitbucket123';
+
+
+
+
+
