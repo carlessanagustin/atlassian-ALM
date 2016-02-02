@@ -48,13 +48,12 @@ http://localhost:7990
 EndOfMessage
 
 ###  Configuración con base de datos PostgreSQL ###
-##  $ su postgres
 ##
-##  $ createuser -SDReP bitbucket
+##  $ sudo -u postgres createuser -SDReP bitbucket
 ##  # CREATE ROLE bitbucket NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
 ##  # CREATE ROLE bitbucket PASSWORD '...............' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
 ##
-##  $ createdb -e -O bitbucket bitbucket
+##  $ sudo -u postgres createdb -e -O bitbucket bitbucket
 ##  # CREATE DATABASE bitbucket OWNER bitbucket;
 ##  
 ##  # ALTER USER bitbucket WITH PASSWORD 'bitbucket123';
