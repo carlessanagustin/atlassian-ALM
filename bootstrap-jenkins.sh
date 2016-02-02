@@ -22,6 +22,15 @@ apt-get -y install oracle-java8-installer
 
 apt-get -y install doxygen jenkins
 
+# VAGRANT only
+#
+# $ vim /etc/default/jenkins
+# HTTP_PORT=8085
+# $ service jenkins restart
+
+
+# Installing NGINX
+#
 # apt-get -y install nginx
 # 
 # cd /etc/nginx/sites-available
