@@ -1,12 +1,5 @@
 # Application Lifecycle Management Stack
 
-https://confluence.atlassian.com/jira/installing-jira-on-linux-191501165.html#InstallingJIRAonLinux-PerforminganUnattendedInstallation
-
-(TODO) LEFT HERE:
-* https://confluence.atlassian.com/bitbucketserver/securing-bitbucket-server-with-tomcat-using-ssl-776640127.html
-* https://confluence.atlassian.com/bitbucketserver/getting-started-776640896.html
-
-
 Basado en Atlassian. Incluye:
 
 * Jira
@@ -31,11 +24,42 @@ Debemos asegurar que tenemos instalado el siguiente listado de software en nuest
 $ cd /carpeta/de/trabajo
 $ git clone https://github.com/carlessanagustin/atlassian-ALM.git
 $ cd atlassian-ALM
+```
+
+#### Iniciar y aprovisionar las instancias
+
+* Jira + BitBucket
+
+```bash
 $ vagrant up --provision
+```
+
+* Solo Jira
+
+```bash
+$ vagrant up jira --provision
+```
+
+* Solo BitBucket
+
+```bash
+$ vagrant up bitbucket --provision
 ```
 
 * Ir a BitBucket - [http://localhost:7990](http://localhost:7990)
 * Ir a Jira - [http://localhost:8080](http://localhost:8080)
+
+#### Parar las instancias
+
+```bash
+$ vagrant halt
+```
+
+#### Eliminar las instancias
+
+```bash
+$ ./delete-vagrant.sh
+```
 
 ------
 
