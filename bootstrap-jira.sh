@@ -17,7 +17,6 @@ echo "oracle-java8-installer shared/present-oracle-license-v1-1 boolean true" | 
 echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
 apt-get -y install oracle-java8-installer
 
-
 cd /tmp
 
 FILE=atlassian-jira-software-7.0.10-jira-7.0.10-x64.bin
@@ -42,4 +41,3 @@ Carpetas de trabajo:
 Acceder a Jira:
 http://localhost:8080
 EndOfMessage
-

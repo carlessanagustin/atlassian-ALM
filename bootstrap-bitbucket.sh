@@ -58,8 +58,3 @@ EndOfMessage
 ##  # CREATE DATABASE bitbucket OWNER bitbucket;
 ##  
 ##  # ALTER USER bitbucket WITH PASSWORD 'bitbucket123';
-
-
-
-
-
