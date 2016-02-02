@@ -26,29 +26,35 @@ FILE=atlassian-bitbucket-4.3.2-x64.bin
 CONF=varfile-bitbucket.txt
 if [ ! -f "$FILE" ]
 then
-    wget https://www.atlassian.com/software/stash/downloads/binary/$FILE
     # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2-x64.bin
     # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2.tar.gz
+    wget https://www.atlassian.com/software/stash/downloads/binary/$FILE
     wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
 fi
 
 chmod +x $FILE
-./$FILE -q -varfile varfile-bitbucket.txt
+./$FILE -q -varfile $CONF
 
 update-rc.d atlbitbucket defaults
 service atlbitbucket start
 
-ls /var/atlassian/application-data/bitbucket
-ls /opt/atlassian/bitbucket/4.3.2
+cat << EndOfMessage
+Carpetas de trabajo:
+/var/atlassian/application-data/bitbucket
+/opt/atlassian/bitbucket/4.3.2
 
-###  final steps ###
-##  su postgres
+Acceder a BitBucket:
+http://localhost:7990
+EndOfMessage
+
+###  Configuración con base de datos PostgreSQL ###
+##  $ su postgres
 ##
-##  createuser -SDReP bitbucket
+##  $ createuser -SDReP bitbucket
 ##  # CREATE ROLE bitbucket NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
 ##  # CREATE ROLE bitbucket PASSWORD '...............' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
 ##
-##  createdb -e -O bitbucket bitbucket
+##  $ createdb -e -O bitbucket bitbucket
 ##  # CREATE DATABASE bitbucket OWNER bitbucket;
 ##  
 ##  # ALTER USER bitbucket WITH PASSWORD 'bitbucket123';

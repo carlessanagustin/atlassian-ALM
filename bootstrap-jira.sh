@@ -25,5 +25,21 @@ CONF=varfile-jira.txt
 if [ ! -f "$FILE" ]
 then
     wget https://www.atlassian.com/software/jira/downloads/binary/$FILE
+    wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
 fi
+
+chmod +x $FILE
+./$FILE -q -varfile $CONF
+
+update-rc.d jira defaults
+service jira start
+
+cat << EndOfMessage
+Carpetas de trabajo:
+/var/atlassian/application-data/jira
+/opt/atlassian/jira
+
+Acceder a Jira:
+http://localhost:8080
+EndOfMessage
 

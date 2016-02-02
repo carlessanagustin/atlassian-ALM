@@ -16,22 +16,26 @@ Basado en Atlassian. Incluye:
 
 ### Pre-requisitos
 
+Debemos asegurar que tenemos instalado el siguiente listado de software en nuestro ordenador
+
 * Instalar VirtualBox - https://www.virtualbox.org/
 * Instalar Vagrant - https://www.vagrantup.com/
 * Instalar Git - https://git-scm.com/
 
 ### Instrucciones
 
-Abrimos un terminal y realizamos los siguientes pasos:
+* Abrir Git Bash (Windows) o Terminal (Linux/MacOSX)
+* Realizar los siguientes pasos
 
 ```bash
+$ cd /carpeta/de/trabajo
 $ git clone https://github.com/carlessanagustin/atlassian-ALM.git
 $ cd atlassian-ALM
 $ vagrant up --provision
 ```
 
-* Ir a BitBucket - http://localhost:7990
-* Ir a Jira - http://localhost:???
+* Ir a BitBucket - [http://localhost:7990](http://localhost:7990)
+* Ir a Jira - [http://localhost:8080](http://localhost:8080)
 
 ------
 

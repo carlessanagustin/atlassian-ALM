@@ -1,0 +1,15 @@
+# install4j response file for JIRA Software 7.0.10
+
+executeLauncherAction$Boolean=true
+app.install.service$Boolean=true
+sys.confirmedUpdateInstallationString=false
+existingInstallationDir=/usr/local/JIRA Software
+sys.languageId=en
+sys.installationDir=/opt/atlassian/jira
+
+
+# Installation Directory: /opt/atlassian/jira
+# Home Directory: /var/atlassian/application-data/jira
+# HTTP Port: 8080
+# RMI Port: 8005
+# Install as service: Yes

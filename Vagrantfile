@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.memory = 1024
         vb.cpus = 1
           end
-      jira.vm.network "forwarded_port", host: 8080, guest: 80, auto_correct: true # web
+      jira.vm.network "forwarded_port", host: 8080, guest: 8080, auto_correct: true # jira
       jira.vm.network "private_network", ip: "192.168.32.11", virtualbox__intnet: true, auto_config: true
     end
     
