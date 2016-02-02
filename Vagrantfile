@@ -41,6 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             end
         jenkins.vm.network "forwarded_port", host: 8081, guest: 80, auto_correct: true # jenkins
         jenkins.vm.network "forwarded_port", host: 8082, guest: 8080, auto_correct: true # jenkins
+        jenkins.vm.network "forwarded_port", host: 8085, guest: 8085, auto_correct: true # jenkins
         jenkins.vm.network "private_network", ip: "192.168.32.12", virtualbox__intnet: true, auto_config: true
     end
     
