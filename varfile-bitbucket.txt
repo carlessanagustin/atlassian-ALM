@@ -1,20 +1,26 @@
-// Should Bitbucket Server be installed as a Service? Must be ADMIN (default: true if the process is running with administrator rights, false otherwise). If false, the home and installation directories must be specified to point to directories owned by the user
+#install4j response file for Bitbucket 4.3.2
 
 app.install.service$Boolean=true
-
-
-// The ports Bitbucket Server should bind to (defaults: portChoice=default, httpPort=7990, serverPort=8006)
-
 portChoice=custom
 httpPort=7990
 serverPort=8006
+app.bitbucketHome=/var/atlassian/application-data/bitbucket
+app.defaultInstallDir=/opt/atlassian/bitbucket/4.3.2
 
+
+launch.application$Boolean=true
+sys.adminRights$Boolean=true
+installation.type=INSTALL
+sys.languageId=en
+executeLauncherAction$Boolean=true
+
+
+
+// Should Bitbucket Server be installed as a Service? Must be ADMIN (default: true if the process is running with administrator rights, false otherwise). If false, the home and installation directories must be specified to point to directories owned by the user
+
+// The ports Bitbucket Server should bind to (defaults: portChoice=default, httpPort=7990, serverPort=8006)
 
 // Path to the Bitbucket Server HOME directory (default: /var/atlassian/application-data/bitbucket if the process is running with administrator rights, ~/atlassian/application-data/bitbucket otherwise)
 
-app.bitbucketHome=/var/atlassian/application-data/bitbucket
-
-
 // The target installation directory (default: /opt/atlassian/bitbucket/<VERSION> if the process is running with administrator rights, ~/atlassian/bitbucket/<VERSION> otherwise)
 
-app.defaultInstallDir=/opt/atlassian/bitbucket/<VERSION>
