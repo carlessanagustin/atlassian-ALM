@@ -6,26 +6,43 @@ cd /etc/nginx/sites-available
 rm default ../sites-enabled/default
 
 cat >/etc/nginx/sites-available/jenkins <<EOL
-upstream app_server {
-    server 127.0.0.1:8080 fail_timeout=0;
+upstream jenkins {
+  server 127.0.0.1:8080 fail_timeout=0;
 }
-server {
-    listen 80;
-    listen [::]:80 default ipv6only=on;
-    server_name ci.yourcompany.com;
 
-    location / {
-        proxy_set_header        Host $host;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
-        
-        proxy_redirect off;
-        
-        proxy_pass http://app_server;
-        
-        proxy_read_timeout  90;
-    }
+server {
+  listen 80;
+#  server_name jenkins.domain.tld;
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name jenkins.domain.tld;
+
+  ssl_certificate /etc/nginx/ssl/jenkins.crt;
+  ssl_certificate_key /etc/nginx/ssl/jenkins.key;
+  ssl on;
+  ssl_session_cache  builtin:1000  shared:SSL:10m;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+  ssl_prefer_server_ciphers on;
+
+  access_log            /var/log/nginx/jenkins.access.log;
+
+  location / {
+    proxy_pass              http://jenkins;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_redirect          http:// https://;
+#    proxy_redirect          http://localhost:8080 https://jenkins.domain.com;
+#    proxy_redirect          off;
+#    proxy_set_header        X-Forwarded-Host $host;
+#    proxy_set_header        X-Forwarded-Server $host;
+
+  }
 }
 EOL
 
