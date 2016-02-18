@@ -1,54 +1,16 @@
 #!/bin/bash
 
+#####
+## remember to change server_name in bootstrap-jenkins.nginx
+#####
+
 apt-get -y install nginx
 
 cd /etc/nginx/sites-available
-rm default ../sites-enabled/default
-
-cat >/etc/nginx/sites-available/jenkins <<EOL
-upstream jenkins {
-  server 127.0.0.1:8080 fail_timeout=0;
-}
-
-server {
-  listen 80;
-#  server_name jenkins.domain.tld;
-  return 301 https://$host$request_uri;
-}
-
-server {
-  listen 443 ssl;
-  server_name jenkins.domain.tld;
-
-  ssl_certificate /etc/nginx/ssl/jenkins.crt;
-  ssl_certificate_key /etc/nginx/ssl/jenkins.key;
-  ssl on;
-  ssl_session_cache  builtin:1000  shared:SSL:10m;
-  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
-  ssl_prefer_server_ciphers on;
-
-  access_log            /var/log/nginx/jenkins.access.log;
-
-  location / {
-    proxy_pass              http://jenkins;
-    proxy_set_header        Host $host;
-    proxy_set_header        X-Real-IP $remote_addr;
-    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header        X-Forwarded-Proto $scheme;
-    proxy_redirect          http:// https://;
-#    proxy_redirect          http://localhost:8080 https://jenkins.domain.com;
-#    proxy_redirect          off;
-#    proxy_set_header        X-Forwarded-Host $host;
-#    proxy_set_header        X-Forwarded-Server $host;
-
-  }
-}
-EOL
-
+rm /etc/nginx/sites-enabled/default
+cp bootstrap-jenkins.nginx /etc/nginx/sites-available/jenkins 
 ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
 
+service nginx restart
+
 echo "remember to change server_name from /etc/nginx/sites-available/jenkins"
-
-# service nginx restart
-
