@@ -47,5 +47,8 @@ server {
 EOL
 
 ln -s /etc/nginx/sites-available/jenkins /etc/nginx/sites-enabled/
-service nginx restart
+
+echo "remember to change server_name from /etc/nginx/sites-available/jenkins"
+
+# service nginx restart
 
