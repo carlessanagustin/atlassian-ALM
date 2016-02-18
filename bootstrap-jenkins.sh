@@ -28,3 +28,13 @@ apt-get -y install doxygen jenkins
 # HTTP_PORT=8085
 # $ service jenkins restart
 
+service jenkins restart
+update-rc.d jenkins defaults
+
+mkdir /jenkins-backups
+chown jenkins:jenkins /jenkins-backups
+echo "/jenkins-backups"
+
+mkdir -p /var/log/jenkins-audit-trail
+chown jenkins:jenkins /var/log/jenkins-audit-trail
+echo "/var/log/jenkins-audit-trail"

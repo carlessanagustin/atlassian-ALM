@@ -35,8 +35,8 @@ fi
 chmod +x $FILE
 ./$FILE -q -varfile $CONF
 
-update-rc.d atlbitbucket defaults
 service atlbitbucket start
+update-rc.d atlbitbucket defaults
 
 cat << EndOfMessage
 Carpetas de trabajo:
