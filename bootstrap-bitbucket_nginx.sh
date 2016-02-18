@@ -6,6 +6,10 @@
 
 apt-get -y install nginx
 
+mkdir /etc/nginx/ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/bitbucket.key -out /etc/nginx/ssl/bitbucket.crt
+
 cd /etc/nginx/sites-available
 rm /etc/nginx/sites-enabled/default
 cp bootstrap-bitbucket.nginx /etc/nginx/sites-available/bitbucket

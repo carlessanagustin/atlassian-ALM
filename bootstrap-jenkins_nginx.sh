@@ -6,6 +6,10 @@
 
 apt-get -y install nginx
 
+mkdir /etc/nginx/ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/jenkins.key -out /etc/nginx/ssl/jenkins.crt
+
 cd /etc/nginx/sites-available
 rm /etc/nginx/sites-enabled/default
 cp bootstrap-jenkins.nginx /etc/nginx/sites-available/jenkins 
