@@ -41,20 +41,30 @@ chmod +x $FILE
 service atlbitbucket start
 update-rc.d atlbitbucket defaults
 
-# Backup requirements: DIY Backups using Bash scripts
+## Backup ddbb + home folder
 # source: http://confluence.atlassian.com/display/BitbucketServer/Data+recovery+and+backups
 apt-get -y install bash jq postgresql-client rsync tar
 
+# method 1
 # cd /root
 # git clone https://carlessanagustin@bitbucket.org/atlassianlabs/atlassian-bitbucket-diy-backup.git
 
-cd /opt
+# method 2
+cd /opt/atlassian/
 wget https://marketplace.atlassian.com/download/plugins/com.atlassian.stash.backup.client/version/200000200 -O bitbucket-backup-distribution-2.0.2.zip
 unzip bitbucket-backup-distribution-2.0.2.zip
-cd /opt/bitbucket-backup-client-2.0.2
+cd /opt/atlassian/bitbucket-backup-client-2.0.2
+cp ./backup-bitbucket.sh /etc/cron.daily/
+chmod +x /etc/cron.daily/backup-bitbucket.sh
 ## for help
-# java -jar /opt/bitbucket-backup-client.jar --help
-# java -jar /opt/bitbucket-restore-client.jar --help
+# java -jar bitbucket-backup-client.jar --help
+# java -jar bitbucket-restore-client.jar --help
+
+## Backup logs
+mkdir /bitbucket-backups
+chown atlbitbucket:atlbitbucket /bitbucket-backups
+cp ./backup-bitbucketlogs.sh /etc/cron.monthly/
+chmod +x /etc/cron.monthly/backup-bitbucketlogs.sh
 
 # prompt message
 cat << EndOfMessage
@@ -65,6 +75,11 @@ Carpetas de trabajo:
 Crear PostgreSQL
 sudo -u postgres createuser -SDReP username
 sudo -u postgres createdb -e -O username dbname
+
+Carpetas de backup:
+/bitbucket-backups
+/etc/cron.daily/backup-bitbucket.sh
+/etc/cron.monthly/backup-bitbucketlogs.sh
 
 Acceder a BitBucket:
 http://localhost:7990
