@@ -45,12 +45,16 @@ update-rc.d atlbitbucket defaults
 # source: http://confluence.atlassian.com/display/BitbucketServer/Data+recovery+and+backups
 apt-get -y install bash jq postgresql-client rsync tar
 
-cd /root
-git clone https://carlessanagustin@bitbucket.org/atlassianlabs/atlassian-bitbucket-diy-backup.git
+# cd /root
+# git clone https://carlessanagustin@bitbucket.org/atlassianlabs/atlassian-bitbucket-diy-backup.git
 
 cd /opt
-wget https://marketplace.atlassian.com/download/plugins/com.atlassian.stash.backup.client/version/200000200
+wget https://marketplace.atlassian.com/download/plugins/com.atlassian.stash.backup.client/version/200000200 -O bitbucket-backup-distribution-2.0.2.zip
 unzip bitbucket-backup-distribution-2.0.2.zip
+cd /opt/bitbucket-backup-client-2.0.2
+## for help
+# java -jar /opt/bitbucket-backup-client.jar --help
+# java -jar /opt/bitbucket-restore-client.jar --help
 
 # prompt message
 cat << EndOfMessage
