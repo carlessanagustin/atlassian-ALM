@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# BitBucket version file
+## BitBucket version file
+# binary: atlassian-bitbucket-4.3.2-x64.bin
+# source: atlassian-bitbucket-4.3.2.tar.gz
 FILE=atlassian-bitbucket-4.3.2-x64.bin
+
 CONF=varfile-bitbucket.txt
 
 REPO=$(pwd)
@@ -20,11 +23,11 @@ locale-gen UTF-8
 
 # base
 apt-get -y install curl vim screen ssh tree lynx links2 zip unzip unrar wget
-apt-get -y install git git-lfs
-
-
-# python
 apt-get -y install build-essential python-virtualenv python-pip python-dev 
+
+# git
+apt-get -y install git git-lfs
+git lfs install
 
 # java
 echo "oracle-java8-installer shared/present-oracle-license-v1-1 boolean true" | debconf-set-selections
@@ -37,8 +40,6 @@ apt-get -y install postgresql perl
 cd /tmp
 if [ ! -f "$FILE" ]
 then
-    # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2-x64.bin
-    # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2.tar.gz
     wget https://www.atlassian.com/software/stash/downloads/binary/$FILE
     # wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
 fi
@@ -49,7 +50,6 @@ chmod +x $FILE
 
 service atlbitbucket start
 update-rc.d atlbitbucket defaults
-
 
 ## Backup ddbb + home folder
 # source: http://confluence.atlassian.com/display/BitbucketServer/Data+recovery+and+backups
@@ -74,7 +74,7 @@ chmod 750 /etc/cron.daily/backup-bitbucket.sh
 cp $REPO/backup-bitbucketlogs.sh /etc/cron.monthly/
 chmod +x /etc/cron.monthly/backup-bitbucketlogs.sh
 
-# prompt message
+## prompt message
 cat << EndOfMessage
 Carpetas de trabajo:
 /var/atlassian/application-data/bitbucket
