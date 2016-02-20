@@ -2,6 +2,9 @@
 
 # BitBucket version file
 FILE=atlassian-bitbucket-4.3.2-x64.bin
+CONF=varfile-bitbucket.txt
+
+REPO=$(pwd)
 
 add-apt-repository -y ppa:webupd8team/java
 
@@ -25,18 +28,17 @@ apt-get -y install oracle-java8-installer
 apt-get -y install postgresql perl
 
 cd /tmp
-
-CONF=varfile-bitbucket.txt
 if [ ! -f "$FILE" ]
 then
     # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2-x64.bin
     # https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.3.2.tar.gz
     wget https://www.atlassian.com/software/stash/downloads/binary/$FILE
-    wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
+    # wget https://raw.githubusercontent.com/carlessanagustin/atlassian-ALM/master/$CONF $CONF
 fi
-
 chmod +x $FILE
-./$FILE -q -varfile $CONF
+
+## Install BitBucket quiet
+./$FILE -q -varfile $REPO/$CONF
 
 service atlbitbucket start
 update-rc.d atlbitbucket defaults
@@ -44,6 +46,9 @@ update-rc.d atlbitbucket defaults
 ## Backup ddbb + home folder
 # source: http://confluence.atlassian.com/display/BitbucketServer/Data+recovery+and+backups
 apt-get -y install bash jq postgresql-client rsync tar
+
+mkdir /bitbucket-backups
+chown root:root /bitbucket-backups
 
 # method 1
 # cd /root
@@ -54,16 +59,11 @@ cd /opt/atlassian/
 wget https://marketplace.atlassian.com/download/plugins/com.atlassian.stash.backup.client/version/200000200 -O bitbucket-backup-distribution-2.0.2.zip
 unzip bitbucket-backup-distribution-2.0.2.zip
 cd /opt/atlassian/bitbucket-backup-client-2.0.2
-cp ./backup-bitbucket.sh /etc/cron.daily/
-chmod +x /etc/cron.daily/backup-bitbucket.sh
-## for help
-# java -jar bitbucket-backup-client.jar --help
-# java -jar bitbucket-restore-client.jar --help
+cp $REPO/backup-bitbucket.sh /etc/cron.daily/
+chmod 750 /etc/cron.daily/backup-bitbucket.sh
 
 ## Backup logs
-mkdir /bitbucket-backups
-chown atlbitbucket:atlbitbucket /bitbucket-backups
-cp ./backup-bitbucketlogs.sh /etc/cron.monthly/
+cp $REPO/backup-bitbucketlogs.sh /etc/cron.monthly/
 chmod +x /etc/cron.monthly/backup-bitbucketlogs.sh
 
 # prompt message

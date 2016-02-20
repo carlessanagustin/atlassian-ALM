@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REPO=$(pwd)
+
 add-apt-repository -y ppa:webupd8team/java
 
 wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
