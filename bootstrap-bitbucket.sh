@@ -6,6 +6,11 @@ CONF=varfile-bitbucket.txt
 
 REPO=$(pwd)
 
+## Git Large File Storage (LFS)
+# source: https://confluence.atlassian.com/bitbucketserver/git-large-file-storage-lfs-794364846.html
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+
+# java
 add-apt-repository -y ppa:webupd8team/java
 
 apt-get update
@@ -14,7 +19,9 @@ apt-get update
 locale-gen UTF-8
 
 # base
-apt-get -y install git curl vim screen ssh tree lynx links2 zip unzip unrar wget
+apt-get -y install curl vim screen ssh tree lynx links2 zip unzip unrar wget
+apt-get -y install git git-lfs
+
 
 # python
 apt-get -y install build-essential python-virtualenv python-pip python-dev 
@@ -42,6 +49,7 @@ chmod +x $FILE
 
 service atlbitbucket start
 update-rc.d atlbitbucket defaults
+
 
 ## Backup ddbb + home folder
 # source: http://confluence.atlassian.com/display/BitbucketServer/Data+recovery+and+backups
