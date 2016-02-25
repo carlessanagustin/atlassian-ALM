@@ -13,7 +13,7 @@ apt-get update
 locale-gen UTF-8
 
 # base
-apt-get -y install git curl vim screen ssh tree lynx links2 zip unzip unrar wget
+apt-get -y install git curl vim screen ssh tree lynx links2 zip unzip unrar wget htop
 
 # python
 apt-get -y install build-essential python-virtualenv python-pip python-dev 

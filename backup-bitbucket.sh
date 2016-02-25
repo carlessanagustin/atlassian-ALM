@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # backup to local
 java \
@@ -15,3 +15,10 @@ rsync -av\
  --log-file="/bitbucket-backups/log/rsync.log.$(date +%Y%m%d%H%M)"\
  /bitbucket-backups/backups/*\
  rsync@192.168.1.1::project/bitbucket-backups/
+
+
+# delete old logs
+find /bitbucket-backups/log/* -mtime +10 -exec rm {} \;
+
+# to add in /etc/crontab
+# 25 5    * * *   root  bash /etc/cron.daily/backup-bitbucket.sh
