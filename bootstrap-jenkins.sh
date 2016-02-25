@@ -39,12 +39,18 @@ mkdir -p /var/log/jenkins-audit-trail
 chown jenkins:jenkins /var/log/jenkins-audit-trail
 echo "/var/log/jenkins-audit-trail"
 
-
 # prompt message
 cat << EndOfMessage
 need this?
 $ vim /etc/default/jenkins
 HTTP_PORT=8085
+
+Working folder:
+/var/lib/jenkins
+/var/lib/jenkins/plugins
+
+To disabled plugins:
+touch /var/lib/jenkins/plugins/credentials.jpi.disabled
 
 Acceder a Jenkins:
 http://localhost:8080
