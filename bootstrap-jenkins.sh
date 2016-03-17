@@ -13,7 +13,7 @@ apt-get update
 locale-gen UTF-8
 
 # base
-apt-get -y install git curl vim screen ssh tree lynx links2 zip unzip unrar wget htop
+apt-get -y install git curl vim screen ssh tree lynx links2 zip unzip unrar wget htop sshpass
 
 # python
 apt-get -y install build-essential python-virtualenv python-pip python-dev 
@@ -31,8 +31,9 @@ apt-get -y install jenkins
 service jenkins restart
 update-rc.d jenkins defaults
 
-mkdir /jenkins-backups
-chown jenkins:jenkins /jenkins-backups
+mkdir -p /jenkins-backups/backups
+mkdir -p /jenkins-backups/log
+chown -Rf jenkins:jenkins /jenkins-backups
 echo "/jenkins-backups"
 
 mkdir -p /var/log/jenkins-audit-trail
