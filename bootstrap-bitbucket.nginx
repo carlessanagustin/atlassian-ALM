@@ -20,6 +20,7 @@ server {
 	# ssl_session_cache   shared:SSL:10m;
 #	location /bitbucket {
 	location / {
+        client_max_body_size 50m;
 #		proxy_pass 			http://localhost:7990/bitbucket;
 		proxy_pass 			http://localhost:7990/;
 		proxy_set_header 	X-Forwarded-Host $host;
