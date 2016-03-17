@@ -7,7 +7,7 @@ apt-get update
 
 locale-gen UTF-8
 
-apt-get -y install git curl vim screen ssh tree lynx links zip unzip
+apt-get -y install git curl vim screen ssh tree lynx links zip unzip htop
 
 # python
 apt-get -y install python-pip python-dev build-essential python-virtualenv
@@ -33,11 +33,18 @@ chmod +x $FILE
 update-rc.d jira defaults
 service jira start
 
+apt-get -y install postgresql perl
+
 cat << EndOfMessage
 Carpetas de trabajo:
 /var/atlassian/application-data/jira
 /opt/atlassian/jira
 
+Crear PostgreSQL
+sudo -u postgres createuser -SDReP username
+sudo -u postgres createdb -e -O username dbname
+
 Acceder a Jira:
 http://localhost:8080
 EndOfMessage
+

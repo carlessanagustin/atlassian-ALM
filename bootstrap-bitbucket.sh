@@ -89,6 +89,9 @@ Carpetas de backup:
 /etc/cron.daily/backup-bitbucket.sh
 /etc/cron.monthly/backup-bitbucketlogs.sh
 
+@/etc/crontab
+25 5    * * *   root    bash /etc/cron.daily/backup-bitbucket.sh
+
 Acceder a BitBucket:
 http://localhost:7990
 EndOfMessage
